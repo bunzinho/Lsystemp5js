@@ -13,13 +13,29 @@ let rules = [{
     b: "FF[-F--F[++FF]][+F+++F[--F-F]]"
 }];
 
+function getUIdiv() {
+    return document.getElementById('ui');
+}
 
 function setup() {
-    let c = createCanvas(windowWidth, windowHeight * 0.9);
+    let c = createCanvas(windowWidth, windowHeight);
     c.style('display', 'block');
-    colorPicker = createColorPicker("#FF135D");
-    createButton("Generate").mousePressed(generate);
-    createButton("Clear").mousePressed(setupSystem);
+
+    let ui = getUIdiv();
+
+    let color = createColorPicker("#FF135D");
+    color.parent(ui);
+    color.id("colorPicker");
+    colorPicker = color;
+    
+    let btnGen = createButton("Generate");
+    btnGen.mousePressed(generate);
+    btnGen.parent(ui);
+
+    let btnClear = createButton("Clear");
+    btnClear.mousePressed(setupSystem);
+    btnClear.parent(ui);
+
     setupPresets()
     setupSystem();
 
@@ -34,7 +50,7 @@ function setupSystem() {
 }
 
 function windowResized() {
-    resizeCanvas(windowWidth, windowHeight * 0.9);
+    resizeCanvas(windowWidth, windowHeight);
     turtle();
 }
 

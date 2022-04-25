@@ -1,6 +1,20 @@
 let sel;
 
-var presets = [{
+function setupPresets() {
+    sel = createSelect();
+    sel.changed(onPresetChange);
+
+    for (let i = 0; i < presets.length; i++) {
+        sel.option(presets[i].name, i);
+    }
+    sel.parent(getUIdiv());
+}
+
+function onPresetChange() {
+    rules = presets[sel.value()].rules
+}
+
+let presets = [{
     name: "Seaweed",
     rules: [{
         a: "F",
@@ -47,16 +61,3 @@ var presets = [{
     }]
 }]
 
-
-function setupPresets() {
-    sel = createSelect();
-    sel.changed(onPresetChange);
-
-    for (let i = 0; i < presets.length; i++) {
-        sel.option(presets[i].name, i);
-    }
-}
-
-function onPresetChange() {
-    rules = presets[sel.value()].rules
-}
